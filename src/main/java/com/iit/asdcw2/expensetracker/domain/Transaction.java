@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 
@@ -20,6 +23,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Entity
 @Table(name = "transaction", indexes = @Index(name = "idx_id", columnList = "id"))
 @Access(AccessType.FIELD)
+@EnableAutoConfiguration
 public class Transaction implements Serializable {
 
 	private static final long serialVersionUID = 1L;

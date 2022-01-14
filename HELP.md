@@ -17,3 +17,15 @@ The following guides illustrate how to use some features concretely:
 * [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
+
+
+
+
+# integrate swagger
+* https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
+
+# integrate hibernate with spring 
+* https://www.journaldev.com/3531/spring-mvc-hibernate-mysql-integration-crud-example-tutorial
+* https://www.baeldung.com/hibernate-5-spring
+
+
