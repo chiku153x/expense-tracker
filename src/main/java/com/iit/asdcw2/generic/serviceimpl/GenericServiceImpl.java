@@ -2,10 +2,11 @@ package com.iit.asdcw2.generic.serviceimpl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.iit.asdcw2.generic.dao.GenericDao;
 import com.iit.asdcw2.generic.service.GenericService;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Service;
 
 @Service("genericService")
 public class GenericServiceImpl<E, I> implements GenericService<E, I> {

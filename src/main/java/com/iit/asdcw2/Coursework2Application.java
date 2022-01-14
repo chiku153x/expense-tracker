@@ -1,4 +1,4 @@
-package com.iit.asdcw2.coursework2;
+package com.iit.asdcw2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
