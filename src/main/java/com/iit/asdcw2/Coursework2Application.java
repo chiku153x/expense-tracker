@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
+@SpringBootApplication(exclude = {HibernateJpaAutoConfiguration.class})
 @EnableConfigurationProperties
-//@EntityScan(basePackages = {"com.iit.asdcw2.expensetracker.domain"})
-@ComponentScan
+@EntityScan(basePackages = {"com.iit.asdcw2"})
+@ComponentScan(basePackages = {"com.iit.asdcw2"})
 public class Coursework2Application {
 
 	public static void main(String[] args) {

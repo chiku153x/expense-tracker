@@ -29,3 +29,6 @@ The following guides illustrate how to use some features concretely:
 * https://www.baeldung.com/hibernate-5-spring
 
 
+#DAO pattern
+* https://www.codesenior.com/en/tutorial/Spring-Generic-DAO-and-Generic-Service-Implementation
+
