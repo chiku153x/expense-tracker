@@ -1,9 +1,10 @@
 package com.iit.asdcw2.expensetracker.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +13,6 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-
-import javax.persistence.AccessType;
-import javax.persistence.Column;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -34,11 +32,9 @@ public class Transaction implements Serializable {
 	@Column(name = "id")
 	private Long id;
 
-	@ApiModelProperty(value = "Transaction date")
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "date")
-	private Date date;
+	@ApiModelProperty(value = "Transaction name")
+	@Column(name = "name")
+	private String name;
 
 	public Long getId() {
 		return id;
@@ -48,23 +44,23 @@ public class Transaction implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public String getName() {
+		return name;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Transaction(Long id, Date date) {
+	public Transaction(Long id, String name) {
 		super();
 		this.id = id;
-		this.date = date;
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "Transaction [id=" + id + ", date=" + date + "]";
+		return "Transaction [id=" + id + ", name=" + name + "]";
 	}
 
 }
