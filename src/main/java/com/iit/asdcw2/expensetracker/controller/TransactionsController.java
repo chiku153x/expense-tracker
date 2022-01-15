@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.iit.asdcw2.base.controller.BaseController;
+import com.iit.asdcw2.expensetracker.domain.Transaction;
 import com.iit.asdcw2.expensetracker.dto.TransactionDto;
+import com.iit.asdcw2.expensetracker.service.TransactionService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +30,9 @@ import io.swagger.annotations.ApiResponses;
 @Controller
 @RequestMapping("/api/transaction")
 public class TransactionsController extends BaseController {
+	
+	@Autowired
+	TransactionService transactionService;
 
 	@ApiOperation("Gets all Transactions")
 	@ApiResponses(value = { @ApiResponse(code = 200, response = String.class, message = "Operation successful"),
@@ -52,7 +58,8 @@ public class TransactionsController extends BaseController {
 			"application/json; charset=UTF-8" })
 	public ResponseEntity<List<Object>> createMultipleCaseSeedsFromJson(HttpServletRequest request,
 			@RequestBody List<TransactionDto> caseDtos) throws Exception {
-
+        
+		transactionService.saveOrUpdate(new Transaction(100L,"jhdjf"));
 		return new ResponseEntity<>(null, HttpStatus.OK);
 
 	}
