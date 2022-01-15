@@ -11,9 +11,13 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.iit.asdcw2.generic.dao.GenericDao;
 
+@Repository("genericDao")
+@Transactional("transactionManager")
 public class GenericDaoImpl<E, I extends Serializable> implements GenericDao<E, I> {
 
 	private Class<E> entityClass;
