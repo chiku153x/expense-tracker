@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.iit.asdcw2.base.controller.BaseController;
 import com.iit.asdcw2.expensetracker.domain.Transaction;
@@ -27,10 +27,10 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @Api(tags = { "Transaction API" })
-@Controller
+@RestController
 @RequestMapping("/api/transaction")
 public class TransactionsController extends BaseController {
-	
+
 	@Autowired
 	TransactionService transactionService;
 
@@ -58,8 +58,10 @@ public class TransactionsController extends BaseController {
 			"application/json; charset=UTF-8" })
 	public ResponseEntity<List<Object>> createMultipleCaseSeedsFromJson(HttpServletRequest request,
 			@RequestBody List<TransactionDto> caseDtos) throws Exception {
-        
-		transactionService.saveOrUpdate(new Transaction(100L,"jhdjf"));
+
+		Transaction tr = new Transaction();
+		tr.setName("mdosgtyewdfbhvf");
+		transactionService.saveOrUpdate(tr);
 		return new ResponseEntity<>(null, HttpStatus.OK);
 
 	}

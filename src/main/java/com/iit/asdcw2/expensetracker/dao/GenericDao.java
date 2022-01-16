@@ -1,4 +1,4 @@
-package com.iit.asdcw2.generic.dao;
+package com.iit.asdcw2.expensetracker.dao;
 
 import java.util.List;
 

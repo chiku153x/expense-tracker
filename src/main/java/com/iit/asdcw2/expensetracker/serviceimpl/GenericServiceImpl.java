@@ -1,12 +1,12 @@
-package com.iit.asdcw2.generic.serviceimpl;
+package com.iit.asdcw2.expensetracker.serviceimpl;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.iit.asdcw2.generic.dao.GenericDao;
-import com.iit.asdcw2.generic.service.GenericService;
+import com.iit.asdcw2.expensetracker.dao.GenericDao;
+import com.iit.asdcw2.expensetracker.service.GenericService;
 
 @Service("genericService")
 public class GenericServiceImpl<E, I> implements GenericService<E, I> {
@@ -62,14 +62,12 @@ public class GenericServiceImpl<E, I> implements GenericService<E, I> {
 	@Transactional("transactionManager")
 	public void update(E e) {
 		genericDao.update(e);
-
 	}
 
 	@Override
 	@Transactional("transactionManager")
 	public void flush() {
 		genericDao.flush();
-
 	}
 
 }
