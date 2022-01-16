@@ -1,7 +1,6 @@
 package com.iit.asdcw2.expensetracker.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,14 +39,8 @@ public class TransactionsController extends BaseController {
 	@GetMapping(value = "/getAllTransactions", produces = { "application/json; charset=UTF-8" })
 	public ResponseEntity<Object> getAllTransactions(HttpServletRequest request) throws Exception {
 		List<Map<String, String>> al = new ArrayList<>();
-		Map<String, String> m = new HashMap<String, String>();
-		m.put("AAAA", "BB");
-		al.add(m);
-
-		Map<String, String> m2 = new HashMap<String, String>();
-		m2.put("ppp", "aaa");
-		al.add(m2);
-		return new ResponseEntity<>(al, HttpStatus.OK);
+		List<Transaction> allTransactions = transactionService.findAll();
+		return new ResponseEntity<>(allTransactions, HttpStatus.OK);
 	}
 
 	@ApiOperation("Creates Transaction")
@@ -57,12 +50,15 @@ public class TransactionsController extends BaseController {
 	@PostMapping(value = "/createTransaction", consumes = { "application/json; charset=UTF-8" }, produces = {
 			"application/json; charset=UTF-8" })
 	public ResponseEntity<List<Object>> createMultipleCaseSeedsFromJson(HttpServletRequest request,
-			@RequestBody List<TransactionDto> caseDtos) throws Exception {
+			@RequestBody List<TransactionDto> transactionDto) throws Exception {
 
-		Transaction tr = new Transaction();
-		tr.setName("mdosgtyewdfbhvf");
-		transactionService.saveOrUpdate(tr);
-		return new ResponseEntity<>(null, HttpStatus.OK);
+		transactionDto.forEach(f -> {
+			Transaction tr = new Transaction();
+			tr.setName(f.getName());
+			transactionService.saveOrUpdate(tr);
+		});
+
+		return new ResponseEntity<>(HttpStatus.OK);
 
 	}
 
