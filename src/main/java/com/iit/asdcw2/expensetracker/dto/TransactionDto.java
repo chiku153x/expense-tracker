@@ -2,11 +2,6 @@ package com.iit.asdcw2.expensetracker.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -16,13 +11,9 @@ public class TransactionDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ApiModelProperty(value = "Transaction id")
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
 	private Long id;
 
 	@ApiModelProperty(value = "Transaction name")
-	@Column(name = "name")
 	private String name;
 
 	public Long getId() {

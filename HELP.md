@@ -33,3 +33,5 @@ The following guides illustrate how to use some features concretely:
 * https://www.codesenior.com/en/tutorial/Spring-Generic-DAO-and-Generic-Service-Implementation
 * https://www.tutorialspoint.com/design_pattern/data_access_object_pattern.htm
 
+# Hashing
+* https://reflectoring.io/creating-hashes-in-java/

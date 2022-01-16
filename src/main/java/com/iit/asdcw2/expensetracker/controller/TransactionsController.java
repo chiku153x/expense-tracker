@@ -1,8 +1,6 @@
 package com.iit.asdcw2.expensetracker.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,7 +36,6 @@ public class TransactionsController extends BaseController {
 			@ApiResponse(code = 500, response = String.class, message = "TODO") })
 	@GetMapping(value = "/getAllTransactions", produces = { "application/json; charset=UTF-8" })
 	public ResponseEntity<Object> getAllTransactions(HttpServletRequest request) throws Exception {
-		List<Map<String, String>> al = new ArrayList<>();
 		List<Transaction> allTransactions = transactionService.findAll();
 		return new ResponseEntity<>(allTransactions, HttpStatus.OK);
 	}
@@ -49,7 +46,7 @@ public class TransactionsController extends BaseController {
 			@ApiResponse(code = 401, response = String.class, message = "TODO") })
 	@PostMapping(value = "/createTransaction", consumes = { "application/json; charset=UTF-8" }, produces = {
 			"application/json; charset=UTF-8" })
-	public ResponseEntity<List<Object>> createMultipleCaseSeedsFromJson(HttpServletRequest request,
+	public ResponseEntity<Object> creatTransactions(HttpServletRequest request,
 			@RequestBody List<TransactionDto> transactionDto) throws Exception {
 
 		transactionDto.forEach(f -> {
@@ -58,7 +55,7 @@ public class TransactionsController extends BaseController {
 			transactionService.saveOrUpdate(tr);
 		});
 
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>("Saved", HttpStatus.OK);
 
 	}
 
