@@ -1,6 +1,7 @@
 package com.iit.asdcw2.expensetracker.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModel;
@@ -23,26 +26,51 @@ public class Transaction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	public Transaction() {
+	}
+
 	@ApiModelProperty(value = "Transaction id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 
-	@ApiModelProperty(value = "Transaction name")
-	@Column(name = "name")
-	private String name;
-	
-	
+	@ApiModelProperty(value = "Transaction date")
+	@Column(name = "transactionDate")
+	private Date transactionDate;
+
 	@ApiModelProperty(value = "Transaction amount")
 	@Column(name = "amount")
 	private double amount;
 
-	public Transaction(Long id, String name, double amount) {
-		super();
+	@ApiModelProperty(value = "Category")
+	@ManyToOne
+    @JoinColumn(name = "category")
+	private Category category;
+
+	@ApiModelProperty(value = "Is Income")
+	@Column(name = "isIncome")
+	private Boolean isIncome;
+	
+	@ApiModelProperty(value = "User")
+	@ManyToOne
+    @JoinColumn(name = "user")
+	private User user;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
 		this.id = id;
-		this.name = name;
-		this.amount = amount;
+	}
+
+	public Date getTransactionDate() {
+		return transactionDate;
+	}
+
+	public void setTransactionDate(Date date) {
+		this.transactionDate = date;
 	}
 
 	public double getAmount() {
@@ -53,34 +81,47 @@ public class Transaction implements Serializable {
 		this.amount = amount;
 	}
 
-	public Long getId() {
-		return id;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
-	public String getName() {
-		return name;
+	public Boolean getIsIncome() {
+		return isIncome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setIsIncome(Boolean isIncome) {
+		this.isIncome = isIncome;
 	}
 
-	public Transaction(Long id, String name) {
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Transaction(Long id, Date transactionDate, double amount, Category category, Boolean isIncome, User user) {
 		super();
 		this.id = id;
-		this.name = name;
-	}
-
-	public Transaction() {
+		this.transactionDate = transactionDate;
+		this.amount = amount;
+		this.category = category;
+		this.isIncome = isIncome;
+		this.user = user;
 	}
 
 	@Override
 	public String toString() {
-		return "Transaction [id=" + id + ", name=" + name + "]";
+		return "Transaction [id=" + id + ", transactionDate=" + transactionDate + ", amount=" + amount + ", category="
+				+ category + ", isIncome=" + isIncome + ", user=" + user + "]";
 	}
 
+	
+	
+	
 }

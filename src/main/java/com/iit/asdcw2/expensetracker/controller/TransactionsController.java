@@ -1,5 +1,6 @@
 package com.iit.asdcw2.expensetracker.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iit.asdcw2.base.controller.BaseController;
+import com.iit.asdcw2.expensetracker.domain.Category;
 import com.iit.asdcw2.expensetracker.domain.Transaction;
-import com.iit.asdcw2.expensetracker.dto.TransactionDto;
+import com.iit.asdcw2.expensetracker.domain.User;
+import com.iit.asdcw2.expensetracker.dto.CreateTransactionDto;
+import com.iit.asdcw2.expensetracker.service.CategoryService;
 import com.iit.asdcw2.expensetracker.service.TransactionService;
+import com.iit.asdcw2.expensetracker.service.UserService;
+import com.iit.asdcw2.util.ResponseMessage;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +36,12 @@ public class TransactionsController extends BaseController {
 
 	@Autowired
 	TransactionService transactionService;
+
+	@Autowired
+	UserService userService;
+
+	@Autowired
+	CategoryService categoryService;
 
 	@ApiOperation("Gets all Transactions")
 	@ApiResponses(value = { @ApiResponse(code = 200, response = String.class, message = "Operation successful"),
@@ -47,15 +59,22 @@ public class TransactionsController extends BaseController {
 	@PostMapping(value = "/createTransaction", consumes = { "application/json; charset=UTF-8" }, produces = {
 			"application/json; charset=UTF-8" })
 	public ResponseEntity<Object> creatTransactions(HttpServletRequest request,
-			@RequestBody List<TransactionDto> transactionDto) throws Exception {
+			@RequestBody List<CreateTransactionDto> createTransactionDto) throws Exception {
 
-		transactionDto.forEach(f -> {
+		createTransactionDto.forEach(f -> {
 			Transaction tr = new Transaction();
-			tr.setName(f.getName());
+			User user = userService.find(f.getUser());
+			Category category = categoryService.find(f.getCategory());
+			Date date = AppDate.getDatefromString(f.getTransactionDate());
+			tr.setUser(user);
+			tr.setAmount(f.getAmount());
+			tr.setIsIncome(f.getIsIncome());
+			tr.setCategory(category);
+			tr.setTransactionDate(date);
 			transactionService.saveOrUpdate(tr);
 		});
 
-		return new ResponseEntity<>("Saved", HttpStatus.OK);
+		return new ResponseEntity<>(ResponseMessage.message("Transactions are Saved"), HttpStatus.OK);
 
 	}
 
