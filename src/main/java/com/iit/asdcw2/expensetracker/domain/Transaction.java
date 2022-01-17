@@ -45,17 +45,25 @@ public class Transaction implements Serializable {
 
 	@ApiModelProperty(value = "Category")
 	@ManyToOne
-    @JoinColumn(name = "category")
+	@JoinColumn(name = "category")
 	private Category category;
 
 	@ApiModelProperty(value = "Is Income")
 	@Column(name = "isIncome")
 	private Boolean isIncome;
-	
+
 	@ApiModelProperty(value = "User")
 	@ManyToOne
-    @JoinColumn(name = "user")
+	@JoinColumn(name = "user")
 	private User user;
+
+	@ApiModelProperty(value = "note")
+	@Column(name = "note")
+	private String note;
+
+	@ApiModelProperty(value = "isRecurrent")
+	@Column(name = "isRecurrent")
+	private String isRecurrent;
 
 	public Long getId() {
 		return id;
@@ -118,10 +126,37 @@ public class Transaction implements Serializable {
 	@Override
 	public String toString() {
 		return "Transaction [id=" + id + ", transactionDate=" + transactionDate + ", amount=" + amount + ", category="
-				+ category + ", isIncome=" + isIncome + ", user=" + user + "]";
+				+ category + ", isIncome=" + isIncome + ", user=" + user + ", note=" + note + ", isRecurrent="
+				+ isRecurrent + "]";
 	}
 
-	
-	
-	
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	public String getIsRecurrent() {
+		return isRecurrent;
+	}
+
+	public void setIsRecurrent(String isRecurrent) {
+		this.isRecurrent = isRecurrent;
+	}
+
+	public Transaction(Long id, Date transactionDate, double amount, Category category, Boolean isIncome, User user,
+			String note, String isRecurrent) {
+		super();
+		this.id = id;
+		this.transactionDate = transactionDate;
+		this.amount = amount;
+		this.category = category;
+		this.isIncome = isIncome;
+		this.user = user;
+		this.note = note;
+		this.isRecurrent = isRecurrent;
+	}
+
 }

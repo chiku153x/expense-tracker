@@ -36,6 +36,17 @@ public class DatabaseInitializer {
 		// String username, String password
 
 		List<User> allUsers = userService.findAll();
+
+		User userAdmin = null;
+
+		List<User> aUsers = allUsers.stream().filter(f -> f.getUsername().equals("admin")).collect(Collectors.toList());
+		if (aUsers.size() == 0) {
+			userAdmin = new User("Admin", "Admin", "Admin", "0000000000", "admin", AppSecurity.getHash("abc123"));
+			userService.save(userAdmin);
+		} else {
+			userAdmin = aUsers.get(0);
+		}
+
 		List<User> cUsers = allUsers.stream().filter(f -> f.getUsername().equals("chiku")).collect(Collectors.toList());
 		if (cUsers.size() == 0) {
 			User userChinthaka = new User("Chinthaka", "Gayan", "Chinthaka", "0000000001", "chiku",
@@ -60,18 +71,21 @@ public class DatabaseInitializer {
 		categoryList.add("Kids");
 		categoryList.add("Travel");
 
-		addDefaultCategories(categoryList);
+		addDefaultCategories(categoryList, userAdmin);
 
 	}
 
-	private void addDefaultCategories(List<String> categories) {
+	private void addDefaultCategories(List<String> categories, User adminUser) {
 		List<Category> allCategories = categoryService.findAll();
 
 		categories.forEach(cat -> {
 			List<Category> salaryCategories = allCategories.stream().filter(f -> f.getName().equals(cat))
 					.collect(Collectors.toList());
 			if (salaryCategories.size() == 0) {
-				Category category = new Category(cat, cat);
+				Category category = new Category();
+				category.setName(cat);
+				category.setDescription(cat);
+				category.setUser(adminUser);
 				categoryService.save(category);
 			}
 		});

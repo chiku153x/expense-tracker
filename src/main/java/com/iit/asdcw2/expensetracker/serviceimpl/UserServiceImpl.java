@@ -11,7 +11,6 @@ import com.iit.asdcw2.expensetracker.dao.GenericDao;
 import com.iit.asdcw2.expensetracker.dao.UserDao;
 import com.iit.asdcw2.expensetracker.domain.User;
 import com.iit.asdcw2.expensetracker.service.UserService;
-import com.iit.asdcw2.util.AppSecurity;
 
 @Service("userService")
 public class UserServiceImpl extends GenericServiceImpl<User, Long> implements UserService {

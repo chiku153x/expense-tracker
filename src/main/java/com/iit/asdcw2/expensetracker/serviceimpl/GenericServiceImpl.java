@@ -27,6 +27,7 @@ public class GenericServiceImpl<E, I> implements GenericService<E, I> {
 	public E find(I id) {
 		return genericDao.find(id);
 	}
+	
 
 	@Override
 	@Transactional("transactionManager")

@@ -17,36 +17,32 @@ import javax.persistence.Table;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel("category")
+@ApiModel("budget")
 @Entity
-@Table(name = "category", indexes = @Index(name = "idx_id", columnList = "id"))
+@Table(name = "budget", indexes = @Index(name = "idx_id", columnList = "id"))
 @Access(AccessType.FIELD)
-public class Category implements Serializable {
+public class Budget implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public Category() {
+	public Budget() {
 		super();
 	}
 
-	@ApiModelProperty(value = "Category id")
+	@ApiModelProperty(value = "Budget id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 
-	@ApiModelProperty(value = "Name")
-	@Column(name = "name")
-	private String name;
-
 	@ApiModelProperty(value = "Description")
 	@Column(name = "description")
 	private String description;
 
-	@ApiModelProperty(value = "User")
+	@ApiModelProperty(value = "Category")
 	@ManyToOne
-	@JoinColumn(name = "user")
-	private User user;
+	@JoinColumn(name = "category")
+	private Category category;
 
 	public Long getId() {
 		return id;
@@ -54,14 +50,6 @@ public class Category implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getDescription() {
@@ -72,26 +60,26 @@ public class Category implements Serializable {
 		this.description = description;
 	}
 
-	public User getUser() {
-		return user;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
-	public Category(Long id, String name, String description, User user) {
+	public Budget(Long id, String description, Category category) {
 		super();
 		this.id = id;
-		this.name = name;
 		this.description = description;
-		this.user = user;
-
+		this.category = category;
 	}
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", description=" + description + ", user=" + user + "]";
+		return "Budget [id=" + id + ", description=" + description + ", category=" + category + "]";
 	}
+
+	
 
 }
