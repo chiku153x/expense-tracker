@@ -14,6 +14,7 @@ import com.iit.asdcw2.expensetracker.domain.User;
 import com.iit.asdcw2.expensetracker.dto.CreateBudgetDto;
 import com.iit.asdcw2.expensetracker.dto.CreateCategoryDto;
 import com.iit.asdcw2.expensetracker.dto.DeleteTransactionDto;
+import com.iit.asdcw2.expensetracker.dto.ResponseCategoryDto;
 import com.iit.asdcw2.expensetracker.dto.UpdateTransactionDto;
 import com.iit.asdcw2.expensetracker.service.BudgetService;
 import com.iit.asdcw2.expensetracker.service.CategoryService;
@@ -24,10 +25,10 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 
 	@Autowired
 	private CategoryDao categoryDao;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private BudgetService budgetService;
 
@@ -44,7 +45,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 
 	@Override
 	public Boolean addCategory(CreateCategoryDto createCategoryDto) {
-		
+
 		try {
 			Category cat = new Category();
 			cat.setName(createCategoryDto.getName());
@@ -52,7 +53,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 			User user = userService.find(createCategoryDto.getUserId());
 			cat.setUser(user);
 			Category savedCategory = save(cat);
-			
+
 			CreateBudgetDto createBudgetDto = new CreateBudgetDto();
 			createBudgetDto.setCategory(savedCategory);
 			createBudgetDto.setDescription(createCategoryDto.getDescription());
@@ -61,7 +62,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return false;
 	}
 
@@ -75,6 +76,11 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 	public Boolean updateCategory(UpdateTransactionDto updateTransactionDto) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<ResponseCategoryDto> getAllCategoriesByUser(Long uid) {
+		return categoryDao.findAllByUser(uid);
 	}
 
 }

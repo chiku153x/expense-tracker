@@ -1,12 +1,13 @@
 package com.iit.asdcw2.expensetracker.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iit.asdcw2.expensetracker.controller.AppDate;
 import com.iit.asdcw2.expensetracker.dao.GenericDao;
 import com.iit.asdcw2.expensetracker.dao.TransactionDao;
 import com.iit.asdcw2.expensetracker.domain.Category;
@@ -18,6 +19,7 @@ import com.iit.asdcw2.expensetracker.dto.UpdateTransactionDto;
 import com.iit.asdcw2.expensetracker.service.CategoryService;
 import com.iit.asdcw2.expensetracker.service.TransactionService;
 import com.iit.asdcw2.expensetracker.service.UserService;
+import com.iit.asdcw2.util.AppDate;
 
 @Service("transactionService")
 public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long> implements TransactionService {
@@ -111,5 +113,24 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 		}
 
 		return null;
+	}
+
+	@Override
+	public List<Transaction> getAllTransactionsByUser(User user) {
+		List<Transaction> allTransactions = findAll();
+
+		List<Transaction> result = new ArrayList<>();
+		for (Transaction transaction : allTransactions) {
+			if (transaction.getUser().getId().intValue() == user.getId().intValue()) {
+				result.add(transaction);
+			}
+		}
+
+		return result;
+	}
+
+	@Override
+	public Transaction getTransactionById(Long id) {
+		return find(id);
 	}
 }

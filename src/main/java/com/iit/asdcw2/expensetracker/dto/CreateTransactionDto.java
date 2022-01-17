@@ -1,7 +1,6 @@
 package com.iit.asdcw2.expensetracker.dto;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -13,8 +12,7 @@ public class CreateTransactionDto implements Serializable {
 		super();
 	}
 
-	@ApiModelProperty(value = "Transaction id")
-	private Long id;
+
 
 	@ApiModelProperty(value = "Transaction date")
 	private String transactionDate;
@@ -31,9 +29,13 @@ public class CreateTransactionDto implements Serializable {
 	@ApiModelProperty(value = "User")
 	private Long user;
 
-	public Long getId() {
-		return id;
-	}
+	@ApiModelProperty(value = "note")
+	private String note;
+
+	@ApiModelProperty(value = "isRecurrent")
+	private Boolean isRecurrent;
+
+
 
 	public String getTransactionDate() {
 		return transactionDate;
@@ -75,14 +77,11 @@ public class CreateTransactionDto implements Serializable {
 		this.user = user;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
-	public CreateTransactionDto(Long id, String transactionDate, double amount, Long category, Boolean isIncome,
+
+	public CreateTransactionDto(String transactionDate, double amount, Long category, Boolean isIncome,
 			Long user) {
 		super();
-		this.id = id;
 		this.transactionDate = transactionDate;
 		this.amount = amount;
 		this.category = category;
@@ -92,7 +91,7 @@ public class CreateTransactionDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CreateTransactionDto [id=" + id + ", transactionDate=" + transactionDate + ", amount=" + amount
+		return "CreateTransactionDto [transactionDate=" + transactionDate + ", amount=" + amount
 				+ ", category=" + category + ", isIncome=" + isIncome + ", user=" + user + "]";
 	}
 

@@ -8,13 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iit.asdcw2.base.controller.BaseController;
 import com.iit.asdcw2.expensetracker.domain.Category;
+import com.iit.asdcw2.expensetracker.domain.User;
 import com.iit.asdcw2.expensetracker.dto.CreateCategoryDto;
 import com.iit.asdcw2.expensetracker.dto.DeleteTransactionDto;
 import com.iit.asdcw2.expensetracker.dto.UpdateTransactionDto;
@@ -41,19 +44,29 @@ public class CategoryController extends BaseController {
 	@ApiOperation("Gets all Categories")
 	@ApiResponses(value = { @ApiResponse(code = 200, response = String.class, message = "Operation successful"),
 			@ApiResponse(code = 500, response = String.class, message = "TODO") })
-	@GetMapping(value = "/getAllCategories", produces = { "application/json; charset=UTF-8" })
-	public ResponseEntity<Object> getAllCategories(HttpServletRequest request) throws Exception {
-		List<Category> allCategories = categoryService.findAll();
-		return new ResponseEntity<>(allCategories, HttpStatus.OK);
+	@GetMapping(value = "/getAllCategories/{uid}", produces = { "application/json; charset=UTF-8" })
+	public ResponseEntity<Object> getAllCategories(HttpServletRequest request, @PathVariable Long uid,
+			@RequestHeader(value = "X-Auth-Token") String authToken) throws Exception {
+		User user = userService.find(uid);
+		if (user != null) {
+			return new ResponseEntity<>(categoryService.getAllCategoriesByUser(uid), HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>(ResponseMessage.message("Invalid request"), HttpStatus.BAD_REQUEST);
 	}
 
 	@ApiOperation("Gets category by id")
 	@ApiResponses(value = { @ApiResponse(code = 200, response = String.class, message = "Operation successful"),
 			@ApiResponse(code = 500, response = String.class, message = "TODO") })
-	@GetMapping(value = "/getCategoryById", produces = { "application/json; charset=UTF-8" })
-	public ResponseEntity<Object> getCategoryBy(HttpServletRequest request) throws Exception {
-		Category category = categoryService.find(1L); // TODO
-		return new ResponseEntity<>(category, HttpStatus.OK);
+	@GetMapping(value = "/getCategoryById/{id}", produces = { "application/json; charset=UTF-8" })
+	public ResponseEntity<Object> getCategoryById(@PathVariable Long id, HttpServletRequest request) throws Exception {
+		if (id != null && id != 0) {
+			Category category = categoryService.find(id);
+			return new ResponseEntity<>(category, HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>(ResponseMessage.message("Invalid query"), HttpStatus.BAD_REQUEST);
+
 	}
 
 	@ApiOperation("Creates Category")

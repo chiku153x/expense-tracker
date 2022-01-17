@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class CreateCategoryDto implements Serializable {
+public class ResponseCategoryDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public CreateCategoryDto() {
+	public ResponseCategoryDto() {
 		super();
 	}
 
@@ -45,7 +45,7 @@ public class CreateCategoryDto implements Serializable {
 		this.userId = userId;
 	}
 
-	public CreateCategoryDto(String name, String description, Long userId) {
+	public ResponseCategoryDto(String name, String description, Long userId) {
 		super();
 		this.name = name;
 		this.description = description;

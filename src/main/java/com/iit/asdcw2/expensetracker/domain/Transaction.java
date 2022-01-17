@@ -63,7 +63,7 @@ public class Transaction implements Serializable {
 
 	@ApiModelProperty(value = "isRecurrent")
 	@Column(name = "isRecurrent")
-	private String isRecurrent;
+	private Boolean isRecurrent;
 
 	public Long getId() {
 		return id;
@@ -138,16 +138,16 @@ public class Transaction implements Serializable {
 		this.note = note;
 	}
 
-	public String getIsRecurrent() {
+	public Boolean getIsRecurrent() {
 		return isRecurrent;
 	}
 
-	public void setIsRecurrent(String isRecurrent) {
+	public void setIsRecurrent(Boolean isRecurrent) {
 		this.isRecurrent = isRecurrent;
 	}
 
 	public Transaction(Long id, Date transactionDate, double amount, Category category, Boolean isIncome, User user,
-			String note, String isRecurrent) {
+			String note, Boolean isRecurrent) {
 		super();
 		this.id = id;
 		this.transactionDate = transactionDate;

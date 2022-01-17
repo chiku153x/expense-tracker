@@ -1,4 +1,4 @@
-package com.iit.asdcw2.expensetracker.controller;
+package com.iit.asdcw2.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
