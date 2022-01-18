@@ -4,17 +4,14 @@ import java.io.Serializable;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class ResponseCategoryDto implements Serializable {
+public class ResponseBudgetDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public ResponseCategoryDto() {
+	public ResponseBudgetDto() {
 		super();
 	}
 
-	@ApiModelProperty(value = "category id")
-	private Long id;
-	
 	@ApiModelProperty(value = "category name")
 	private String name;
 
@@ -47,19 +44,9 @@ public class ResponseCategoryDto implements Serializable {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public ResponseCategoryDto(Long id, String name, String description, Long userId) {
+	public ResponseBudgetDto(String name, String description, Long userId) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.userId = userId;
@@ -67,10 +54,7 @@ public class ResponseCategoryDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ResponseCategoryDto [id=" + id + ", name=" + name + ", description=" + description + ", userId="
-				+ userId + "]";
+		return "CreateCategoryDto [name=" + name + ", description=" + description + ", userId=" + userId + "]";
 	}
-
-	
 
 }

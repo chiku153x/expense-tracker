@@ -4,18 +4,18 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.iit.asdcw2.expensetracker.dao.CategoryDao;
 import com.iit.asdcw2.expensetracker.dao.GenericDao;
-import com.iit.asdcw2.expensetracker.domain.Budget;
 import com.iit.asdcw2.expensetracker.domain.Category;
 import com.iit.asdcw2.expensetracker.domain.User;
 import com.iit.asdcw2.expensetracker.dto.CreateBudgetDto;
 import com.iit.asdcw2.expensetracker.dto.CreateCategoryDto;
-import com.iit.asdcw2.expensetracker.dto.DeleteTransactionDto;
+import com.iit.asdcw2.expensetracker.dto.DeleteCategoryDto;
 import com.iit.asdcw2.expensetracker.dto.ResponseCategoryDto;
-import com.iit.asdcw2.expensetracker.dto.UpdateTransactionDto;
+import com.iit.asdcw2.expensetracker.dto.UpdateCategoryDto;
 import com.iit.asdcw2.expensetracker.service.BudgetService;
 import com.iit.asdcw2.expensetracker.service.CategoryService;
 import com.iit.asdcw2.expensetracker.service.UserService;
@@ -29,6 +29,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 	@Autowired
 	private UserService userService;
 
+	@Lazy
 	@Autowired
 	private BudgetService budgetService;
 
@@ -67,15 +68,30 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 	}
 
 	@Override
-	public Boolean removeCategory(DeleteTransactionDto deleteTransactionDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean removeCategory(DeleteCategoryDto deleteCategoryDto) {
+		try {
+			Category category = find(deleteCategoryDto.getId());
+			delete(category);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
-	public Boolean updateCategory(UpdateTransactionDto updateTransactionDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean updateCategory(UpdateCategoryDto updateCategoryDto) {
+		try {
+			Category category = find(updateCategoryDto.getId());
+			category.setDescription(updateCategoryDto.getDescription());
+			category.setName(updateCategoryDto.getName());
+			category.setUser(userService.find(updateCategoryDto.getUserId()));
+			saveOrUpdate(category);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override

@@ -52,12 +52,13 @@ public class UserController extends BaseController {
 		if (user != null) {
 			String token = AppSecurity.getHash(userName + password);
 			UserLoginResponseDto userloginResponseDto = new UserLoginResponseDto(token,
-					user.getFirstName() + " " + user.getLastName());
+					user.getFirstName() + " " + user.getLastName(), user.getId());
 
 			return new ResponseEntity<>(userloginResponseDto, HttpStatus.OK);
 		}
 
-		return new ResponseEntity<>(ResponseMessage.message("Login failed due to invalid username or password"), HttpStatus.UNAUTHORIZED);
+		return new ResponseEntity<>(ResponseMessage.message("Login failed due to invalid username or password"),
+				HttpStatus.UNAUTHORIZED);
 	}
 
 }

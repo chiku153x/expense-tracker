@@ -19,7 +19,9 @@ import com.iit.asdcw2.base.controller.BaseController;
 import com.iit.asdcw2.expensetracker.domain.Category;
 import com.iit.asdcw2.expensetracker.domain.User;
 import com.iit.asdcw2.expensetracker.dto.CreateCategoryDto;
+import com.iit.asdcw2.expensetracker.dto.DeleteCategoryDto;
 import com.iit.asdcw2.expensetracker.dto.DeleteTransactionDto;
+import com.iit.asdcw2.expensetracker.dto.UpdateCategoryDto;
 import com.iit.asdcw2.expensetracker.dto.UpdateTransactionDto;
 import com.iit.asdcw2.expensetracker.service.CategoryService;
 import com.iit.asdcw2.expensetracker.service.UserService;
@@ -78,21 +80,21 @@ public class CategoryController extends BaseController {
 			@RequestBody CreateCategoryDto createCategoryDto) throws Exception {
 		Boolean isSuccessfull = categoryService.addCategory(createCategoryDto);
 		if (isSuccessfull) {
-			return new ResponseEntity<>(ResponseMessage.message("Transactions are Saved"), HttpStatus.OK);
+			return new ResponseEntity<>(ResponseMessage.message("Category is Saved"), HttpStatus.OK);
 		}
-		return new ResponseEntity<>(ResponseMessage.message("Transactions are not Saved"), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(ResponseMessage.message("Category is not Saved"), HttpStatus.BAD_REQUEST);
 
 	}
 
-	@ApiOperation("Update Transaction")
+	@ApiOperation("Update Category")
 	@ApiResponses(value = { @ApiResponse(code = 200, response = List.class, message = "Category updated"),
 			@ApiResponse(code = 401, response = String.class, message = "TODO") })
 	@PostMapping(value = "/updateCategory", consumes = { "application/json; charset=UTF-8" }, produces = {
 			"application/json; charset=UTF-8" })
 	public ResponseEntity<Object> updateTransactions(HttpServletRequest request,
-			@RequestBody UpdateTransactionDto updateTransactionDto) throws Exception {
+			@RequestBody UpdateCategoryDto updateCategoryDto) throws Exception {
 
-		Boolean isUpdated = categoryService.updateCategory(updateTransactionDto);
+		Boolean isUpdated = categoryService.updateCategory(updateCategoryDto);
 		if (isUpdated) {
 			return new ResponseEntity<>(ResponseMessage.message("Category is updated"), HttpStatus.OK);
 		}
@@ -107,9 +109,9 @@ public class CategoryController extends BaseController {
 	@PostMapping(value = "/deleteCategory", consumes = { "application/json; charset=UTF-8" }, produces = {
 			"application/json; charset=UTF-8" })
 	public ResponseEntity<Object> deletecategory(HttpServletRequest request,
-			@RequestBody DeleteTransactionDto deleteTransactionDto) throws Exception {
+			@RequestBody DeleteCategoryDto deleteCategoryDto) throws Exception {
 
-		Boolean isDeleted = categoryService.removeCategory(deleteTransactionDto);
+		Boolean isDeleted = categoryService.removeCategory(deleteCategoryDto);
 		if (isDeleted) {
 			return new ResponseEntity<>(ResponseMessage.message("Category is deleted"), HttpStatus.OK);
 		}

@@ -1,21 +1,23 @@
 package com.iit.asdcw2.expensetracker.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class CreateTransactionDto implements Serializable {
+public class ResponseTransactionDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public CreateTransactionDto() {
+	public ResponseTransactionDto() {
 		super();
 	}
 
-
+	@ApiModelProperty(value = "Transaction Id")
+	private Long id;
 
 	@ApiModelProperty(value = "Transaction date")
-	private String transactionDate;
+	private Date transactionDate;
 
 	@ApiModelProperty(value = "Transaction amount")
 	private double amount;
@@ -35,11 +37,19 @@ public class CreateTransactionDto implements Serializable {
 	@ApiModelProperty(value = "isRecurrent")
 	private Boolean isRecurrent;
 
-	public String getTransactionDate() {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getTransactionDate() {
 		return transactionDate;
 	}
 
-	public void setTransactionDate(String transactionDate) {
+	public void setTransactionDate(Date transactionDate) {
 		this.transactionDate = transactionDate;
 	}
 
@@ -91,9 +101,10 @@ public class CreateTransactionDto implements Serializable {
 		this.isRecurrent = isRecurrent;
 	}
 
-	public CreateTransactionDto(String transactionDate, double amount, Long category, Boolean isIncome, Long user,
-			String note, Boolean isRecurrent) {
+	public ResponseTransactionDto(Long id, Date transactionDate, double amount, Long category, Boolean isIncome,
+			Long user, String note, Boolean isRecurrent) {
 		super();
+		this.id = id;
 		this.transactionDate = transactionDate;
 		this.amount = amount;
 		this.category = category;
@@ -105,11 +116,10 @@ public class CreateTransactionDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CreateTransactionDto [transactionDate=" + transactionDate + ", amount=" + amount + ", category="
-				+ category + ", isIncome=" + isIncome + ", user=" + user + ", note=" + note + ", isRecurrent="
-				+ isRecurrent + "]";
+		return "ResponseTransactionDto [id=" + id + ", transactionDate=" + transactionDate + ", amount=" + amount
+				+ ", category=" + category + ", isIncome=" + isIncome + ", user=" + user + ", note=" + note
+				+ ", isRecurrent=" + isRecurrent + "]";
 	}
-
 
 
 }

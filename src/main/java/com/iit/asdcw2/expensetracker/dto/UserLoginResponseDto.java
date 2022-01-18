@@ -6,15 +6,18 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("User")
-public class UserLoginResponseDto implements Serializable{
+public class UserLoginResponseDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@ApiModelProperty(value = "token")
 	private String token;
-	
-	@ApiModelProperty(value = "userName")
-	private String userName;
+
+	@ApiModelProperty(value = "name")
+	private String name;
+
+	@ApiModelProperty(value = "id")
+	private Long id;
 
 	public String getToken() {
 		return token;
@@ -24,23 +27,32 @@ public class UserLoginResponseDto implements Serializable{
 		this.token = token;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public UserLoginResponseDto(String token, String userName) {
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public UserLoginResponseDto(String token, String name, Long id) {
 		super();
 		this.token = token;
-		this.userName = userName;
+		this.name = name;
+		this.id = id;
 	}
 
-	public UserLoginResponseDto() {
-		super();
+	@Override
+	public String toString() {
+		return "UserLoginResponseDto [token=" + token + ", name=" + name + ", id=" + id + "]";
 	}
 
-	
 }

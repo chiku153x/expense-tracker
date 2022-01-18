@@ -43,6 +43,10 @@ public class Budget implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "category")
 	private Category category;
+	
+	@ApiModelProperty(value = "Amount")
+	@Column(name = "amount")
+	private Double amount;
 
 	public Long getId() {
 		return id;
@@ -68,18 +72,27 @@ public class Budget implements Serializable {
 		this.category = category;
 	}
 
-	public Budget(Long id, String description, Category category) {
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	public Budget(Long id, String description, Category category, Double amount) {
 		super();
 		this.id = id;
 		this.description = description;
 		this.category = category;
+		this.amount = amount;
 	}
 
 	@Override
 	public String toString() {
-		return "Budget [id=" + id + ", description=" + description + ", category=" + category + "]";
+		return "Budget [id=" + id + ", description=" + description + ", category=" + category + ", amount=" + amount
+				+ "]";
 	}
 
 	
-
 }

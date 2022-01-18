@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.iit.asdcw2</groupId>
-	<artifactId>coursework2</artifactId>
+	<artifactId>expense-tracker</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>coursework2</name>
+	<name>expense-tracker</name>
 	<description>Advanced  software design - coursework 2</description>
 	<properties>
 		<java.version>1.8</java.version>

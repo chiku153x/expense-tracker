@@ -15,6 +15,7 @@ import com.iit.asdcw2.expensetracker.domain.Transaction;
 import com.iit.asdcw2.expensetracker.domain.User;
 import com.iit.asdcw2.expensetracker.dto.CreateTransactionDto;
 import com.iit.asdcw2.expensetracker.dto.DeleteTransactionDto;
+import com.iit.asdcw2.expensetracker.dto.ResponseTransactionDto;
 import com.iit.asdcw2.expensetracker.dto.UpdateTransactionDto;
 import com.iit.asdcw2.expensetracker.service.CategoryService;
 import com.iit.asdcw2.expensetracker.service.TransactionService;
@@ -56,6 +57,8 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 			transaction.setIsIncome(createTransactionDto.getIsIncome());
 			transaction.setCategory(category);
 			transaction.setTransactionDate(date);
+			transaction.setNote(createTransactionDto.getNote());
+			transaction.setIsRecurrent(createTransactionDto.getIsRecurrent());
 			save(transaction);
 			return true;
 		} catch (Exception e) {
@@ -116,13 +119,22 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 	}
 
 	@Override
-	public List<Transaction> getAllTransactionsByUser(User user) {
+	public List<ResponseTransactionDto> getAllTransactionsByUser(User user) {
 		List<Transaction> allTransactions = findAll();
 
-		List<Transaction> result = new ArrayList<>();
+		List<ResponseTransactionDto> result = new ArrayList<>();
 		for (Transaction transaction : allTransactions) {
 			if (transaction.getUser().getId().intValue() == user.getId().intValue()) {
-				result.add(transaction);
+				ResponseTransactionDto responseTransactionDto = new ResponseTransactionDto();
+				responseTransactionDto.setId(transaction.getId());
+				responseTransactionDto.setAmount(transaction.getAmount());
+				responseTransactionDto.setCategory(transaction.getCategory().getId());
+				responseTransactionDto.setIsIncome(transaction.getIsIncome());
+				responseTransactionDto.setTransactionDate(transaction.getTransactionDate());
+				responseTransactionDto.setUser(transaction.getUser().getId());
+				responseTransactionDto.setIsRecurrent(transaction.getIsRecurrent());
+				responseTransactionDto.setNote(transaction.getNote());
+				result.add(responseTransactionDto);
 			}
 		}
 
