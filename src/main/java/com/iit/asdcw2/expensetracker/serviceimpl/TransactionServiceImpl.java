@@ -59,6 +59,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 			transaction.setTransactionDate(date);
 			transaction.setNote(createTransactionDto.getNote());
 			transaction.setIsRecurrent(createTransactionDto.getIsRecurrent());
+			transaction.setDescription(createTransactionDto.getDescription());
 			save(transaction);
 			return true;
 		} catch (Exception e) {
@@ -93,6 +94,18 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 
 				if (updateTransactionDto.getIsIncome() != currentTransaction.getIsIncome()) {
 					currentTransaction.setIsIncome(updateTransactionDto.getIsIncome());
+				}
+
+				if (updateTransactionDto.getNote() != currentTransaction.getNote()) {
+					currentTransaction.setNote(updateTransactionDto.getNote());
+				}
+
+				if (updateTransactionDto.getIsRecurrent() != currentTransaction.getIsRecurrent()) {
+					currentTransaction.setIsRecurrent(updateTransactionDto.getIsRecurrent());
+				}
+
+				if (updateTransactionDto.getDescription() != currentTransaction.getDescription()) {
+					currentTransaction.setDescription(updateTransactionDto.getDescription());
 				}
 
 				saveOrUpdate(currentTransaction);
@@ -134,6 +147,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 				responseTransactionDto.setUser(transaction.getUser().getId());
 				responseTransactionDto.setIsRecurrent(transaction.getIsRecurrent());
 				responseTransactionDto.setNote(transaction.getNote());
+				responseTransactionDto.setDescription(transaction.getDescription());
 				result.add(responseTransactionDto);
 			}
 		}

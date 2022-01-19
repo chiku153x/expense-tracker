@@ -29,6 +29,9 @@ public class UpdateBudgetDto implements Serializable {
 
 	@ApiModelProperty(value = "Month")
 	private Integer month;
+	
+	@ApiModelProperty(value = "User")
+	private Long user;
 
 	public Long getId() {
 		return id;
@@ -78,7 +81,16 @@ public class UpdateBudgetDto implements Serializable {
 		this.month = month;
 	}
 
-	public UpdateBudgetDto(Long id, String description, Long category, Double amount, Integer year, Integer month) {
+	public Long getUser() {
+		return user;
+	}
+
+	public void setUser(Long user) {
+		this.user = user;
+	}
+
+	public UpdateBudgetDto(Long id, String description, Long category, Double amount, Integer year, Integer month,
+			Long user) {
 		super();
 		this.id = id;
 		this.description = description;
@@ -86,12 +98,15 @@ public class UpdateBudgetDto implements Serializable {
 		this.amount = amount;
 		this.year = year;
 		this.month = month;
+		this.user = user;
 	}
 
 	@Override
 	public String toString() {
 		return "UpdateBudgetDto [id=" + id + ", description=" + description + ", category=" + category + ", amount="
-				+ amount + ", year=" + year + ", month=" + month + "]";
+				+ amount + ", year=" + year + ", month=" + month + ", user=" + user + "]";
 	}
+
+	
 
 }

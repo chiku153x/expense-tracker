@@ -34,6 +34,10 @@ public class Transaction implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
+	
+	@ApiModelProperty(value = "description")
+	@Column(name = "description")
+	private String description;
 
 	@ApiModelProperty(value = "Transaction date")
 	@Column(name = "transactionDate")
@@ -73,12 +77,20 @@ public class Transaction implements Serializable {
 		this.id = id;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Date getTransactionDate() {
 		return transactionDate;
 	}
 
-	public void setTransactionDate(Date date) {
-		this.transactionDate = date;
+	public void setTransactionDate(Date transactionDate) {
+		this.transactionDate = transactionDate;
 	}
 
 	public double getAmount() {
@@ -113,23 +125,6 @@ public class Transaction implements Serializable {
 		this.user = user;
 	}
 
-	public Transaction(Long id, Date transactionDate, double amount, Category category, Boolean isIncome, User user) {
-		super();
-		this.id = id;
-		this.transactionDate = transactionDate;
-		this.amount = amount;
-		this.category = category;
-		this.isIncome = isIncome;
-		this.user = user;
-	}
-
-	@Override
-	public String toString() {
-		return "Transaction [id=" + id + ", transactionDate=" + transactionDate + ", amount=" + amount + ", category="
-				+ category + ", isIncome=" + isIncome + ", user=" + user + ", note=" + note + ", isRecurrent="
-				+ isRecurrent + "]";
-	}
-
 	public String getNote() {
 		return note;
 	}
@@ -146,10 +141,11 @@ public class Transaction implements Serializable {
 		this.isRecurrent = isRecurrent;
 	}
 
-	public Transaction(Long id, Date transactionDate, double amount, Category category, Boolean isIncome, User user,
-			String note, Boolean isRecurrent) {
+	public Transaction(Long id, String description, Date transactionDate, double amount, Category category,
+			Boolean isIncome, User user, String note, Boolean isRecurrent) {
 		super();
 		this.id = id;
+		this.description = description;
 		this.transactionDate = transactionDate;
 		this.amount = amount;
 		this.category = category;
@@ -158,5 +154,16 @@ public class Transaction implements Serializable {
 		this.note = note;
 		this.isRecurrent = isRecurrent;
 	}
+
+	@Override
+	public String toString() {
+		return "Transaction [id=" + id + ", description=" + description + ", transactionDate=" + transactionDate
+				+ ", amount=" + amount + ", category=" + category + ", isIncome=" + isIncome + ", user=" + user
+				+ ", note=" + note + ", isRecurrent=" + isRecurrent + "]";
+	}
+
+
+	
+
 
 }

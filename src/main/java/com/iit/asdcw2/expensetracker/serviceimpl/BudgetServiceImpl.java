@@ -10,12 +10,14 @@ import com.iit.asdcw2.expensetracker.dao.BudgetDao;
 import com.iit.asdcw2.expensetracker.dao.GenericDao;
 import com.iit.asdcw2.expensetracker.domain.Budget;
 import com.iit.asdcw2.expensetracker.domain.Category;
+import com.iit.asdcw2.expensetracker.domain.User;
 import com.iit.asdcw2.expensetracker.dto.CreateBudgetDto;
 import com.iit.asdcw2.expensetracker.dto.DeleteBudgetDto;
 import com.iit.asdcw2.expensetracker.dto.ResponseBudgetDto;
 import com.iit.asdcw2.expensetracker.dto.UpdateBudgetDto;
 import com.iit.asdcw2.expensetracker.service.BudgetService;
 import com.iit.asdcw2.expensetracker.service.CategoryService;
+import com.iit.asdcw2.expensetracker.service.UserService;
 
 @Service("budgetService")
 public class BudgetServiceImpl extends GenericServiceImpl<Budget, Long> implements BudgetService {
@@ -25,6 +27,9 @@ public class BudgetServiceImpl extends GenericServiceImpl<Budget, Long> implemen
 
 	@Autowired
 	private CategoryService categoryService;
+
+	@Autowired
+	private UserService userService;
 
 	private Random random = null;
 
@@ -41,9 +46,14 @@ public class BudgetServiceImpl extends GenericServiceImpl<Budget, Long> implemen
 	public Boolean addBudget(CreateBudgetDto createBudgetDto) {
 		try {
 			Category category = categoryService.find(createBudgetDto.getCategory());
+			User user = userService.find(createBudgetDto.getUser());
 			Budget budget = new Budget();
 			budget.setDescription(createBudgetDto.getDescription());
 			budget.setCategory(category);
+			budget.setAmount(createBudgetDto.getAmount());
+			budget.setMonth(createBudgetDto.getMonth());
+			budget.setYear(createBudgetDto.getYear());
+			budget.setUser(user);
 			save(budget);
 			return true;
 		} catch (Exception e) {
@@ -61,11 +71,15 @@ public class BudgetServiceImpl extends GenericServiceImpl<Budget, Long> implemen
 	public Boolean updateBudget(UpdateBudgetDto updateBudgetDto) {
 		try {
 			Category cat = categoryService.find(updateBudgetDto.getCategory());
+			User user = userService.find(updateBudgetDto.getUser());
 			Budget budget = new Budget();
 			budget.setAmount(updateBudgetDto.getAmount());
 			budget.setCategory(cat);
 			budget.setDescription(updateBudgetDto.getDescription());
 			budget.setId(updateBudgetDto.getId());
+			budget.setUser(user);
+			budget.setYear(updateBudgetDto.getYear());
+			budget.setMonth(updateBudgetDto.getMonth());
 			saveOrUpdate(budget);
 			return true;
 		} catch (Exception e) {

@@ -16,6 +16,9 @@ public class CreateTransactionDto implements Serializable {
 
 	@ApiModelProperty(value = "Transaction date")
 	private String transactionDate;
+	
+	@ApiModelProperty(value = "description")
+	private String description;
 
 	@ApiModelProperty(value = "Transaction amount")
 	private double amount;
@@ -41,6 +44,14 @@ public class CreateTransactionDto implements Serializable {
 
 	public void setTransactionDate(String transactionDate) {
 		this.transactionDate = transactionDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public double getAmount() {
@@ -91,10 +102,11 @@ public class CreateTransactionDto implements Serializable {
 		this.isRecurrent = isRecurrent;
 	}
 
-	public CreateTransactionDto(String transactionDate, double amount, Long category, Boolean isIncome, Long user,
-			String note, Boolean isRecurrent) {
+	public CreateTransactionDto(String transactionDate, String description, double amount, Long category,
+			Boolean isIncome, Long user, String note, Boolean isRecurrent) {
 		super();
 		this.transactionDate = transactionDate;
+		this.description = description;
 		this.amount = amount;
 		this.category = category;
 		this.isIncome = isIncome;
@@ -105,10 +117,12 @@ public class CreateTransactionDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CreateTransactionDto [transactionDate=" + transactionDate + ", amount=" + amount + ", category="
-				+ category + ", isIncome=" + isIncome + ", user=" + user + ", note=" + note + ", isRecurrent="
-				+ isRecurrent + "]";
+		return "CreateTransactionDto [transactionDate=" + transactionDate + ", description=" + description + ", amount="
+				+ amount + ", category=" + category + ", isIncome=" + isIncome + ", user=" + user + ", note=" + note
+				+ ", isRecurrent=" + isRecurrent + "]";
 	}
+
+	
 
 
 
