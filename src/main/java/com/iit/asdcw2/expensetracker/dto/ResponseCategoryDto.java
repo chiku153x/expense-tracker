@@ -23,6 +23,17 @@ public class ResponseCategoryDto implements Serializable {
 
 	@ApiModelProperty(value = "user")
 	private Long userId;
+	
+	@ApiModelProperty(value = "isDeleted")
+	private Boolean isDeleted;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -47,30 +58,31 @@ public class ResponseCategoryDto implements Serializable {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
 
-	public Long getId() {
-		return id;
+	public Boolean getIsDeleted() {
+		return isDeleted;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
-
-	public ResponseCategoryDto(Long id, String name, String description, Long userId) {
+// arguments are:com.iit.asdcw2.expensetracker.dto.ResponseCategoryDto(c.id, c.name,c.description,c.user.id, c.isDeleted) 
+	public ResponseCategoryDto(Long id, String name, String description, Long userId, Boolean isDeleted) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.userId = userId;
+		this.isDeleted = isDeleted;
 	}
 
 	@Override
 	public String toString() {
 		return "ResponseCategoryDto [id=" + id + ", name=" + name + ", description=" + description + ", userId="
-				+ userId + "]";
+				+ userId + ", isDeleted=" + isDeleted + "]";
 	}
 
+	
 	
 
 }

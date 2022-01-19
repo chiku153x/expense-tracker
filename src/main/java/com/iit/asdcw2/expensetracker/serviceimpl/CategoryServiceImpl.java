@@ -109,7 +109,8 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 		}
 
 		List<ResponseCategoryDto> findAllCategories = categoryDao.findAllByUser(uid);
-		if (!findAllCategoriesByAdmin.isEmpty()) {
+		List<ResponseCategoryDto> filtered = findAllCategories.stream().filter(f-> !f.getIsDeleted()).collect(Collectors.toList());
+		if (!filtered.isEmpty()) {
 			findAllCategories.addAll(findAllCategoriesByAdmin);
 		}
 

@@ -20,7 +20,7 @@ public class CategoryDaoImpl extends GenericDaoImpl<Category, Long> implements C
 	public List<ResponseCategoryDto> findAllByUser(Long uid) {
 		StringBuilder builder = new StringBuilder();
 		builder.append(
-				"select new com.iit.asdcw2.expensetracker.dto.ResponseCategoryDto(c.id, c.name,c.description,c.user.id) from Category c where c.user.id = :userId");
+				"select new com.iit.asdcw2.expensetracker.dto.ResponseCategoryDto(c.id, c.name,c.description,c.user.id, c.isDeleted) from Category c where c.user.id = :userId");
 		Query<?> query = this.getCurrentSession().createQuery(builder.toString());
 		query.setParameter("userId", uid);
 		return (List<ResponseCategoryDto>) query.getResultList();
