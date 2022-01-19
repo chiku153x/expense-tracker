@@ -16,4 +16,11 @@ public class AppDate {
 		}
 		return null;
 	}
+
+	public static Date now() {
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+		Date date = new Date();
+		formatter.format(date);
+		return date;
+	}
 }

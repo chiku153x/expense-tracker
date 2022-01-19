@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iit.asdcw2.base.controller.BaseController;
+import com.iit.asdcw2.expensetracker.domain.Session;
 import com.iit.asdcw2.expensetracker.domain.User;
 import com.iit.asdcw2.expensetracker.dto.UserLoginDto;
 import com.iit.asdcw2.expensetracker.dto.UserLoginResponseDto;
+import com.iit.asdcw2.expensetracker.service.SessionService;
 import com.iit.asdcw2.expensetracker.service.UserService;
+import com.iit.asdcw2.util.AppDate;
 import com.iit.asdcw2.util.AppSecurity;
 import com.iit.asdcw2.util.ResponseMessage;
 
@@ -32,6 +35,9 @@ public class UserController extends BaseController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	SessionService sessionService;
 
 	@ApiOperation("Login User")
 	@ApiResponses(value = { @ApiResponse(code = 200, response = List.class, message = "User logged in successgully"),
@@ -53,7 +59,7 @@ public class UserController extends BaseController {
 			String token = AppSecurity.getHash(userName + password);
 			UserLoginResponseDto userloginResponseDto = new UserLoginResponseDto(token,
 					user.getFirstName() + " " + user.getLastName(), user.getId());
-
+			sessionService.save(new Session(user, token, AppDate.now()));
 			return new ResponseEntity<>(userloginResponseDto, HttpStatus.OK);
 		}
 

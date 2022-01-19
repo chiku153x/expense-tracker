@@ -43,10 +43,23 @@ public class Budget implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "category")
 	private Category category;
-	
+
 	@ApiModelProperty(value = "Amount")
 	@Column(name = "amount")
 	private Double amount;
+
+	@ApiModelProperty(value = "Year")
+	@Column(name = "year")
+	private Integer year;
+
+	@ApiModelProperty(value = "Month")
+	@Column(name = "month")
+	private Integer month;
+	
+	@ApiModelProperty(value = "User")
+	@ManyToOne
+	@JoinColumn(name = "user")
+	private User user;
 
 	public Long getId() {
 		return id;
@@ -80,19 +93,49 @@ public class Budget implements Serializable {
 		this.amount = amount;
 	}
 
-	public Budget(Long id, String description, Category category, Double amount) {
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Budget(Long id, String description, Category category, Double amount, Integer year, Integer month,
+			User user) {
 		super();
 		this.id = id;
 		this.description = description;
 		this.category = category;
 		this.amount = amount;
+		this.year = year;
+		this.month = month;
+		this.user = user;
 	}
 
 	@Override
 	public String toString() {
 		return "Budget [id=" + id + ", description=" + description + ", category=" + category + ", amount=" + amount
-				+ "]";
+				+ ", year=" + year + ", month=" + month + ", user=" + user + "]";
 	}
 
 	
+
 }

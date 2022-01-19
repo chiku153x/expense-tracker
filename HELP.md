@@ -35,3 +35,7 @@ The following guides illustrate how to use some features concretely:
 
 # Hashing
 * https://reflectoring.io/creating-hashes-in-java/
+
+
+#Authentication
+* https://www.initgrep.com/posts/java/spring/Spring-Security-implement-user-pass-auth

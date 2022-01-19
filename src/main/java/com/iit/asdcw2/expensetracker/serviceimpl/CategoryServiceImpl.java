@@ -1,7 +1,9 @@
 package com.iit.asdcw2.expensetracker.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -55,10 +57,10 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 			cat.setUser(user);
 			Category savedCategory = save(cat);
 
-			CreateBudgetDto createBudgetDto = new CreateBudgetDto();
-			createBudgetDto.setCategory(savedCategory);
-			createBudgetDto.setDescription(createCategoryDto.getDescription());
-			budgetService.addBudget(createBudgetDto);
+//			CreateBudgetDto createBudgetDto = new CreateBudgetDto();
+//			createBudgetDto.setCategory(savedCategory.getId());
+//			createBudgetDto.setDescription(createCategoryDto.getDescription());
+//			budgetService.addBudget(createBudgetDto);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,7 +98,22 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 
 	@Override
 	public List<ResponseCategoryDto> getAllCategoriesByUser(Long uid) {
-		return categoryDao.findAllByUser(uid);
+		List<ResponseCategoryDto> findAllCategoriesByAdmin = new ArrayList<>();
+		List<User> adminUsers = userService.findAll().stream().filter(f -> f.getUsername().equals("admin"))
+				.collect(Collectors.toList());
+		if (adminUsers != null && adminUsers.size() > 0) {
+			User admin = adminUsers.get(0);
+			if (admin.getId().intValue() != uid.intValue()) {
+				findAllCategoriesByAdmin = categoryDao.findAllByUser(admin.getId());
+			}
+		}
+
+		List<ResponseCategoryDto> findAllCategories = categoryDao.findAllByUser(uid);
+		if (!findAllCategoriesByAdmin.isEmpty()) {
+			findAllCategories.addAll(findAllCategoriesByAdmin);
+		}
+
+		return findAllCategories;
 	}
 
 }

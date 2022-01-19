@@ -12,21 +12,33 @@ public class ResponseBudgetDto implements Serializable {
 		super();
 	}
 
-	@ApiModelProperty(value = "category name")
-	private String name;
+	@ApiModelProperty(value = "Budget id")
+	private Long id;
 
-	@ApiModelProperty(value = "category description")
+	@ApiModelProperty(value = "Budget description")
 	private String description;
+
+	@ApiModelProperty(value = "Budget Category")
+	private Long category;
+
+	@ApiModelProperty(value = "Amount")
+	private Double amount;
+
+	@ApiModelProperty(value = "year")
+	private Integer year;
+
+	@ApiModelProperty(value = "month")
+	private Integer month;
 
 	@ApiModelProperty(value = "user")
 	private Long userId;
 
-	public String getName() {
-		return name;
+	public Long getId() {
+		return id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getDescription() {
@@ -37,6 +49,38 @@ public class ResponseBudgetDto implements Serializable {
 		this.description = description;
 	}
 
+	public Long getCategory() {
+		return category;
+	}
+
+	public void setCategory(Long category) {
+		this.category = category;
+	}
+
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -45,16 +89,22 @@ public class ResponseBudgetDto implements Serializable {
 		this.userId = userId;
 	}
 
-	public ResponseBudgetDto(String name, String description, Long userId) {
+	public ResponseBudgetDto(Long id, String description, Long category, Double amount, Integer year, Integer month,
+			Long userId) {
 		super();
-		this.name = name;
+		this.id = id;
 		this.description = description;
+		this.category = category;
+		this.amount = amount;
+		this.year = year;
+		this.month = month;
 		this.userId = userId;
 	}
 
 	@Override
 	public String toString() {
-		return "CreateCategoryDto [name=" + name + ", description=" + description + ", userId=" + userId + "]";
+		return "ResponseBudgetDto [id=" + id + ", description=" + description + ", category=" + category + ", amount="
+				+ amount + ", year=" + year + ", month=" + month + ", userId=" + userId + "]";
 	}
 
 }

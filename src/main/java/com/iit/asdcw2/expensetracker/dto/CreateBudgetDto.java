@@ -2,8 +2,6 @@ package com.iit.asdcw2.expensetracker.dto;
 
 import java.io.Serializable;
 
-import com.iit.asdcw2.expensetracker.domain.Category;
-
 import io.swagger.annotations.ApiModelProperty;
 
 public class CreateBudgetDto implements Serializable {
@@ -18,7 +16,16 @@ public class CreateBudgetDto implements Serializable {
 	private String description;
 
 	@ApiModelProperty(value = "Category")
-	private Category category;
+	private Long category;
+
+	@ApiModelProperty(value = "Amount")
+	private Double amount;
+
+	@ApiModelProperty(value = "Year")
+	private Integer year;
+
+	@ApiModelProperty(value = "Month")
+	private Integer month;
 
 	public String getDescription() {
 		return description;
@@ -28,24 +35,51 @@ public class CreateBudgetDto implements Serializable {
 		this.description = description;
 	}
 
-	public Category getCategory() {
+	public Long getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(Long category) {
 		this.category = category;
 	}
 
-	public CreateBudgetDto(String description, Category category) {
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+
+	public Integer getYear() {
+		return year;
+	}
+
+	public void setYear(Integer year) {
+		this.year = year;
+	}
+
+	public Integer getMonth() {
+		return month;
+	}
+
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
+
+	public CreateBudgetDto(String description, Long category, Double amount, Integer year, Integer month) {
 		super();
 		this.description = description;
 		this.category = category;
+		this.amount = amount;
+		this.year = year;
+		this.month = month;
 	}
 
 	@Override
 	public String toString() {
-		return "CreateBudgetDto [description=" + description + ", category=" + category + "]";
+		return "CreateBudgetDto [description=" + description + ", category=" + category + ", amount=" + amount
+				+ ", year=" + year + ", month=" + month + "]";
 	}
 
-	
 }

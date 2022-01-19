@@ -20,7 +20,7 @@ public class BudgetDaoImpl extends GenericDaoImpl<Budget, Long> implements Budge
 	public List<ResponseBudgetDto> findAllByUser(Long uid) {
 		StringBuilder builder = new StringBuilder();
 		builder.append(
-				"select new com.iit.asdcw2.expensetracker.dto.ResponseBudgetDto( b.id,b.description,b.category.id, b.amount) from Category b where b.user.id = :userId");
+				"select new com.iit.asdcw2.expensetracker.dto.ResponseBudgetDto( b.id,b.description,b.category.id, b.amount, b.year , b.month , b.user.id) from Budget b where b.user.id = :userId");
 		Query<?> query = this.getCurrentSession().createQuery(builder.toString());
 		query.setParameter("userId", uid);
 		return (List<ResponseBudgetDto>) query.getResultList();

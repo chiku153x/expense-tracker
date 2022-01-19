@@ -40,9 +40,10 @@ public class BudgetServiceImpl extends GenericServiceImpl<Budget, Long> implemen
 	@Override
 	public Boolean addBudget(CreateBudgetDto createBudgetDto) {
 		try {
+			Category category = categoryService.find(createBudgetDto.getCategory());
 			Budget budget = new Budget();
 			budget.setDescription(createBudgetDto.getDescription());
-			budget.setCategory(createBudgetDto.getCategory());
+			budget.setCategory(category);
 			save(budget);
 			return true;
 		} catch (Exception e) {
