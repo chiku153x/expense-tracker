@@ -1,0 +1,44 @@
+.me-login-form{
+    width:500px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-left:-250px;
+    margin-top:-250px;
+
+}
+
+.me-to-right{text-align:right}
+.me-to-center{text-align:center}
+.me-hide{visibility:hidden}
+.me-show{visibility:visible}
+.me-content{padding:10px}
+.me-top-bar{padding-bottom: 20px;}
+.me-top-bar h2 {width:400px; display: inline-block;}
+.me-top-bar button {display: inline-block; float: right }
+.me-color-orange{color:green}
+.me-color-red{color:red}
+.poi{cursor:pointer}
+
+.dataTable td:nth-child(3) {
+    text-align: right;
+ }
+
+ .dataTable td:nth-child(7) {
+    text-align: right;
+ }
+
+ .dataTable td:nth-child(9) {
+    text-align: center;
+ }
+
+ .page-item.active .page-link {
+    background-color: rgb(86, 150, 119) !important;
+    border: 1px solid rgb(101, 162, 133);
+}
+.page-link {
+    color: rgb(102, 121, 104) !important;
+}
+
+.data-layer-charts{display: inline-block; width:22%; padding:10px;float:left}
+.data-layer-tbl{display: inline-block; width:50%; padding:10px;float:left}
