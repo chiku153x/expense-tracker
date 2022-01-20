@@ -7,6 +7,7 @@ import com.iit.asdcw2.expensetracker.domain.User;
 import com.iit.asdcw2.expensetracker.dto.CreateTransactionDto;
 import com.iit.asdcw2.expensetracker.dto.DeleteTransactionDto;
 import com.iit.asdcw2.expensetracker.dto.ResponseTransactionDto;
+import com.iit.asdcw2.expensetracker.dto.ResponseTransactionSummaryDto;
 import com.iit.asdcw2.expensetracker.dto.UpdateTransactionDto;
 
 public interface TransactionService extends GenericService<Transaction, Long> {
@@ -20,5 +21,7 @@ public interface TransactionService extends GenericService<Transaction, Long> {
 	List<ResponseTransactionDto> getAllTransactionsByUser(User user);
 
 	Transaction getTransactionById(Long id);
+
+	List<ResponseTransactionSummaryDto> getTransactionSummary(Long id, Long year, Long month);
 
 }

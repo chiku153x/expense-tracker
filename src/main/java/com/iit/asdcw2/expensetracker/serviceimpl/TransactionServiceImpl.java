@@ -1,22 +1,28 @@
 package com.iit.asdcw2.expensetracker.serviceimpl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iit.asdcw2.expensetracker.dao.GenericDao;
 import com.iit.asdcw2.expensetracker.dao.TransactionDao;
+import com.iit.asdcw2.expensetracker.domain.Budget;
 import com.iit.asdcw2.expensetracker.domain.Category;
 import com.iit.asdcw2.expensetracker.domain.Transaction;
 import com.iit.asdcw2.expensetracker.domain.User;
 import com.iit.asdcw2.expensetracker.dto.CreateTransactionDto;
 import com.iit.asdcw2.expensetracker.dto.DeleteTransactionDto;
+import com.iit.asdcw2.expensetracker.dto.ResponseCategoryDto;
 import com.iit.asdcw2.expensetracker.dto.ResponseTransactionDto;
+import com.iit.asdcw2.expensetracker.dto.ResponseTransactionSummaryDto;
 import com.iit.asdcw2.expensetracker.dto.UpdateTransactionDto;
+import com.iit.asdcw2.expensetracker.service.BudgetService;
 import com.iit.asdcw2.expensetracker.service.CategoryService;
 import com.iit.asdcw2.expensetracker.service.TransactionService;
 import com.iit.asdcw2.expensetracker.service.UserService;
@@ -30,6 +36,9 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private BudgetService budgetService;
 
 	@Autowired
 	private CategoryService categoryService;
@@ -158,5 +167,63 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 	@Override
 	public Transaction getTransactionById(Long id) {
 		return find(id);
+	}
+
+	@Override
+	public List<ResponseTransactionSummaryDto> getTransactionSummary(Long id, Long year, Long month) {
+		List<Transaction> transactions = findAll().stream()
+				.filter(f -> (f.getUser().getId().compareTo(id) == 0 && !f.getIsIncome()
+						))
+				.collect(Collectors.toList());
+		List<Budget> budgets = budgetService.findAll();
+		budgets.stream().filter(f -> (f.getUser().getId().compareTo(id) == 0 
+				&& f.getYear().intValue() == year.intValue() 
+				&& f.getMonth().intValue() == month.intValue()))
+		.collect(Collectors.toList());
+
+		List<ResponseCategoryDto> allCategoriesByUser = categoryService.getAllCategoriesByUser(id);
+
+		List<ResponseTransactionSummaryDto> rtsd = new ArrayList<>();
+		int count = 1;
+		for (ResponseCategoryDto responseCategoryDto : allCategoriesByUser) {
+			ResponseTransactionSummaryDto obj = new ResponseTransactionSummaryDto();
+
+			Double totalBudget = getTotalBudget(budgets, responseCategoryDto.getId());
+			Double totalExpenses = getTotalExpenses(transactions, responseCategoryDto.getId(),year,month);
+
+			obj.setNo(Long.valueOf(count));
+			obj.setCategory(responseCategoryDto.getId());
+			obj.setBudget(totalBudget);
+			obj.setTotalExpenses(totalExpenses);
+
+			rtsd.add(obj);
+			count++;
+
+		}
+		return rtsd;
+	}
+
+	private Double getTotalBudget(List<Budget> budgets, Long categoryId) {
+		double total = 0d;
+		for (Budget budget : budgets) {
+			if (budget.getCategory().getId().intValue() == categoryId.intValue()) {
+				total = total + budget.getAmount().doubleValue();
+			}
+		}
+		return total;
+	}
+
+	private Double getTotalExpenses(List<Transaction> transactions, Long categoryId, Long year, Long month) {
+		double total = 0d;
+		for (Transaction transaction : transactions) {
+			if (transaction.getCategory().getId().intValue() == categoryId.intValue()) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(transaction.getTransactionDate());
+				if(year.intValue() == cal.get(Calendar.YEAR) && month.intValue()== cal.get(Calendar.MONTH) + 1) {
+					total = total + transaction.getAmount();
+				}
+			}
+		}
+		return total;
 	}
 }

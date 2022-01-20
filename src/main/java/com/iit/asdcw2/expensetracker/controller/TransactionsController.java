@@ -50,7 +50,7 @@ public class TransactionsController extends BaseController {
 	@GetMapping(value = "/getAllTransactions/{uid}", produces = { "application/json; charset=UTF-8" })
 	public ResponseEntity<Object> getAllTransactions(HttpServletRequest request, @PathVariable Long uid,
 			@RequestHeader(value = "X-Auth-Token") String authToken) throws Exception {
-		//TODO Validate token
+		// TODO Validate token
 		User user = userService.find(uid);
 		return new ResponseEntity<>(transactionService.getAllTransactionsByUser(user), HttpStatus.OK);
 	}
@@ -121,6 +121,20 @@ public class TransactionsController extends BaseController {
 
 		return new ResponseEntity<>(ResponseMessage.message("Transactions are deleted"), HttpStatus.BAD_REQUEST);
 
+	}
+
+	@ApiOperation("Gets Transaction summary by year and month")
+	@ApiResponses(value = { @ApiResponse(code = 200, response = String.class, message = "Operation successful"),
+			@ApiResponse(code = 500, response = String.class, message = "TODO") })
+	@GetMapping(value = "/getTransactionById/{id}/{year}/{month}", produces = { "application/json; charset=UTF-8" })
+	public ResponseEntity<Object> getTransactionSummary(@PathVariable Long id, @PathVariable Long year,
+			@PathVariable Long month, HttpServletRequest request,
+			@RequestHeader(value = "X-Auth-Token") String authToken) throws Exception {
+
+		if (id != null && id != 0 && year != null && year != 0 && month != null && month != 0) {
+			return new ResponseEntity<>(transactionService.getTransactionSummary(id, year, month), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(ResponseMessage.message("Invalid query"), HttpStatus.BAD_REQUEST);
 	}
 
 }
