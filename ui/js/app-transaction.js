@@ -19,7 +19,7 @@ $('#saveTransaction').click(function(){
     var transactionDate = $('#date').val(); 
     var note = $('#note').val();
     var description = $('#description').val();
-    if(amount != "" && category != "" && user != "" && transactionDate != ""){
+    if(amount != "" && category != 0 && user != "" && transactionDate != ""){
         data = {
             "amount": amount,
             "description":description,

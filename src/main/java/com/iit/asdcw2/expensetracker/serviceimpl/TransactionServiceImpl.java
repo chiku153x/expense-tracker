@@ -176,7 +176,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 						))
 				.collect(Collectors.toList());
 		List<Budget> budgets = budgetService.findAll();
-		budgets.stream().filter(f -> (f.getUser().getId().compareTo(id) == 0 ))
+		List<Budget> filteredBudgets = budgets.stream().filter(f -> (f.getUser().getId().intValue() == id.intValue() ))
 		.collect(Collectors.toList());
 
 		List<ResponseCategoryDto> allCategoriesByUser = categoryService.getAllCategoriesByUser(id);
@@ -186,7 +186,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 		for (ResponseCategoryDto responseCategoryDto : allCategoriesByUser) {
 			ResponseTransactionSummaryDto obj = new ResponseTransactionSummaryDto();
 
-			Double totalBudget = getTotalBudget(budgets, responseCategoryDto.getId(),year,month);
+			Double totalBudget = getTotalBudget(filteredBudgets, responseCategoryDto.getId(),year,month);
 			Double totalExpenses = getTotalExpenses(transactions, responseCategoryDto.getId(),year,month);
 
 			obj.setNo(Long.valueOf(count));

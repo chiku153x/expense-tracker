@@ -3,6 +3,11 @@ $(document).ready(function() {
     loadCategories();
  });
 
+$('#logout').click(function(){
+    localStorage.setItem('currentUser', null);
+    window.location.href = "file:///Users/gchinthaka/Desktop/expense-tracker-ui/login.html";
+}); 
+
 $('#login-button').click(function(){
     var url = "http://localhost:8080/expense-tracker/api/user/login";
     var un = $('#username').val(); 

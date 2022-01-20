@@ -55,6 +55,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 			cat.setDescription(createCategoryDto.getDescription());
 			User user = userService.find(createCategoryDto.getUserId());
 			cat.setUser(user);
+			cat.setIsDeleted(false);
 			Category savedCategory = save(cat);
 
 //			CreateBudgetDto createBudgetDto = new CreateBudgetDto();
@@ -88,6 +89,7 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 			category.setDescription(updateCategoryDto.getDescription());
 			category.setName(updateCategoryDto.getName());
 			category.setUser(userService.find(updateCategoryDto.getUserId()));
+			category.setIsDeleted(false);
 			saveOrUpdate(category);
 			return true;
 		} catch (Exception e) {
@@ -111,10 +113,10 @@ public class CategoryServiceImpl extends GenericServiceImpl<Category, Long> impl
 		List<ResponseCategoryDto> findAllCategories = categoryDao.findAllByUser(uid);
 		List<ResponseCategoryDto> filtered = findAllCategories.stream().filter(f-> !f.getIsDeleted()).collect(Collectors.toList());
 		if (!filtered.isEmpty()) {
-			findAllCategories.addAll(findAllCategoriesByAdmin);
+			findAllCategoriesByAdmin.addAll(filtered);
 		}
 
-		return findAllCategories;
+		return findAllCategoriesByAdmin;
 	}
 
 }

@@ -12,11 +12,9 @@ public class CreateTransactionDto implements Serializable {
 		super();
 	}
 
-
-
 	@ApiModelProperty(value = "Transaction date")
 	private String transactionDate;
-	
+
 	@ApiModelProperty(value = "description")
 	private String description;
 
@@ -121,9 +119,5 @@ public class CreateTransactionDto implements Serializable {
 				+ amount + ", category=" + category + ", isIncome=" + isIncome + ", user=" + user + ", note=" + note
 				+ ", isRecurrent=" + isRecurrent + "]";
 	}
-
-	
-
-
 
 }
