@@ -176,9 +176,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 						))
 				.collect(Collectors.toList());
 		List<Budget> budgets = budgetService.findAll();
-		budgets.stream().filter(f -> (f.getUser().getId().compareTo(id) == 0 
-				&& f.getYear().intValue() == year.intValue() 
-				&& f.getMonth().intValue() == month.intValue()))
+		budgets.stream().filter(f -> (f.getUser().getId().compareTo(id) == 0 ))
 		.collect(Collectors.toList());
 
 		List<ResponseCategoryDto> allCategoriesByUser = categoryService.getAllCategoriesByUser(id);
@@ -188,7 +186,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 		for (ResponseCategoryDto responseCategoryDto : allCategoriesByUser) {
 			ResponseTransactionSummaryDto obj = new ResponseTransactionSummaryDto();
 
-			Double totalBudget = getTotalBudget(budgets, responseCategoryDto.getId());
+			Double totalBudget = getTotalBudget(budgets, responseCategoryDto.getId(),year,month);
 			Double totalExpenses = getTotalExpenses(transactions, responseCategoryDto.getId(),year,month);
 
 			obj.setNo(Long.valueOf(count));
@@ -203,11 +201,16 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 		return rtsd;
 	}
 
-	private Double getTotalBudget(List<Budget> budgets, Long categoryId) {
+	private Double getTotalBudget(List<Budget> budgets, Long categoryId, Long year, Long month) {
 		double total = 0d;
 		for (Budget budget : budgets) {
 			if (budget.getCategory().getId().intValue() == categoryId.intValue()) {
-				total = total + budget.getAmount().doubleValue();
+				Long ye = budget.getYear().longValue();
+				Long mo = budget.getMonth().longValue()	;			
+				if(ye.compareTo(year) == 0 && mo.compareTo(month) == 0) {
+					total = total + budget.getAmount().doubleValue();
+				}
+				
 			}
 		}
 		return total;
