@@ -8,9 +8,9 @@ $('#transactionBtn').click(function(){
 
 $('#saveTransaction').click(function(){
     if($('#xid').val() == ""){
-        var url = "http://localhost:8080/expense-tracker/api/transaction/createTransaction";
+        var url = base_url + "/transaction/createTransaction";
     }else{
-        var url = "http://localhost:8080/expense-tracker/api/transaction/updateTransaction";
+        var url = base_url + "/transaction/updateTransaction";
     }
     console.log("login clickedccgggsss");
     var amount = $('#amount').val(); 
@@ -60,7 +60,7 @@ $('#saveTransaction').click(function(){
 
 function loadTransactions(){
     
-    var url = "http://localhost:8080/expense-tracker/api/transaction/getAllTransactions/"+JSON.parse(localStorage.getItem('currentUser'))['id'];
+    var url = base_url + "/transaction/getAllTransactions/"+JSON.parse(localStorage.getItem('currentUser'))['id'];
    
     $.ajax({
         headers: { 
@@ -107,7 +107,7 @@ function loadTransactions(){
 }
 
 $('#deleteTransaction').click(function(){
-    var url = "http://localhost:8080/expense-tracker/api/transaction/deleteTransaction";
+    var url = base_url + "/transaction/deleteTransaction";
     data = {
         "id": $('#yid').val()
     }
@@ -146,7 +146,7 @@ function deleteTransaction(id){
 
 
 function loadTransitionToModal(id){
-    var url = "http://localhost:8080/expense-tracker/api/transaction/getTransactionById/" + id;
+    var url = base_url + "/transaction/getTransactionById/" + id;
     $.ajax({
         headers: { 
             'Accept': 'application/json',

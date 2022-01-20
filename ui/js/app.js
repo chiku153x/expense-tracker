@@ -1,3 +1,4 @@
+var base_url = "http://localhost:8080/expense-tracker/api";
 $(document).ready(function() { 
     $('#login-error').hide();
     loadCategories();
@@ -5,11 +6,11 @@ $(document).ready(function() {
 
 $('#logout').click(function(){
     localStorage.setItem('currentUser', null);
-    window.location.href = "file:///Users/gchinthaka/Desktop/expense-tracker-ui/login.html";
+    window.location.href = "login.html";
 }); 
 
 $('#login-button').click(function(){
-    var url = "http://localhost:8080/expense-tracker/api/user/login";
+    var url = base_url + "/user/login";
     var un = $('#username').val(); 
     var pw = $('#password').val(); 
     if(un != "" && pw != ""){
@@ -28,7 +29,7 @@ $('#login-button').click(function(){
             data : JSON.stringify(data), 
             success : function(result) {
                 localStorage.setItem('currentUser', JSON.stringify(result));
-                window.location.href = "file:///Users/gchinthaka/Desktop/expense-tracker-ui/index.html";
+                window.location.href = "index.html";
             },
             error: function(xhr, resp, text) {
                 $('#login-error span').text(xhr.responseJSON.Message);
@@ -42,7 +43,7 @@ $('#login-button').click(function(){
 });
 
 function loadCategories(){
-    var url = "http://localhost:8080/expense-tracker/api/category/getAllCategories/" + JSON.parse(localStorage.getItem('currentUser'))['id'];
+    var url = base_url + "/category/getAllCategories/" + JSON.parse(localStorage.getItem('currentUser'))['id'];
     $.ajax({
         headers: { 
             'Accept': 'application/json',

@@ -8,9 +8,9 @@ $('#budgetBtn').click(function(){
 
 $('#saveBudget').click(function(){
     if($('#xid').val() == ""){
-        var url = "http://localhost:8080/expense-tracker/api/budget/createBudget";
+        var url = base_url + "/budget/createBudget";
     }else{
-        var url = "http://localhost:8080/expense-tracker/api/budget/updateBudget";
+        var url = base_url + "/budget/updateBudget";
     }
     var amount = $('#amount').val(); 
     var category = $('#category').val(); 
@@ -57,7 +57,7 @@ $('#saveBudget').click(function(){
 
 function loadBudgets(){
     
-    var url = "http://localhost:8080/expense-tracker/api/budget/getAllBudgets/"+JSON.parse(localStorage.getItem('currentUser'))['id'];
+    var url = base_url + "/budget/getAllBudgets/"+JSON.parse(localStorage.getItem('currentUser'))['id'];
    
     $.ajax({
         headers: { 
@@ -102,7 +102,7 @@ function loadBudgets(){
 }
 
 $('#deleteBudget').click(function(){
-    var url = "http://localhost:8080/expense-tracker/api/budget/deleteBudget";
+    var url = base_url + "/budget/deleteBudget";
     data = {
         "id": $('#yid').val()
     }
@@ -141,7 +141,7 @@ function deleteBudget(id){
 
 
 function loadBudgetToModal(id){
-    var url = "http://localhost:8080/expense-tracker/api/budget/getBudgetById/" + id;
+    var url = base_url + "/budget/getBudgetById/" + id;
     $.ajax({
         headers: { 
             'Accept': 'application/json',

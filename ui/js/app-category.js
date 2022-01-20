@@ -8,9 +8,9 @@ $('#categoryBtn').click(function(){
 
 $('#saveCategory').click(function(){
     if($('#xid').val() == ""){
-        var url = "http://localhost:8080/expense-tracker/api/category/createCategory";
+        var url = base_url + "/category/createCategory";
     }else{
-        var url = "http://localhost:8080/expense-tracker/api/category/updateCategory";
+        var url = base_url + "/category/updateCategory";
     }
     var user = JSON.parse(localStorage.getItem('currentUser'))['id']; 
     var name = $('#name').val();
@@ -51,7 +51,7 @@ $('#saveCategory').click(function(){
 
 function loadCategories(){
     
-    var url = "http://localhost:8080/expense-tracker/api/category/getAllCategories/"+JSON.parse(localStorage.getItem('currentUser'))['id'];
+    var url = base_url + "/category/getAllCategories/"+JSON.parse(localStorage.getItem('currentUser'))['id'];
    
     $.ajax({
         headers: { 
@@ -92,7 +92,7 @@ function loadCategories(){
 }
 
 $('#deleteCategory').click(function(){
-    var url = "http://localhost:8080/expense-tracker/api/category/deleteCategory";
+    var url = base_url + "/category/deleteCategory";
     data = {
         "id": $('#yid').val()
     }
@@ -131,7 +131,7 @@ function deleteCategory(id){
 
 
 function loadCategoryToModal(id){
-    var url = "http://localhost:8080/expense-tracker/api/category/getCategoryById/" + id;
+    var url = base_url + "/category/getCategoryById/" + id;
     $.ajax({
         headers: { 
             'Accept': 'application/json',
