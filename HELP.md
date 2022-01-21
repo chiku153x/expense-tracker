@@ -39,3 +39,11 @@ The following guides illustrate how to use some features concretely:
 
 #Authentication
 * https://www.initgrep.com/posts/java/spring/Spring-Security-implement-user-pass-auth
+
+
+
+#UI
+# UI frameworks
+# jquery    : https://jquery.com/
+# bootstrap : https://getbootstrap.com/docs/5.0/getting-started/introduction/
+# chart js  : https://www.chartjs.org/docs/3.5.0/charts/mixed.html
