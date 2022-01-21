@@ -8,6 +8,9 @@ RUN cd /usr/src/app/target && ls -l
 
 FROM tomcat:9.0-jdk8-openjdk
 RUN mkdir -p /usr/local/tomcat/webapps/ui
+RUN mkdir -p /opt/properties
+RUN chmod 777 /opt/properties
+COPY src/main/resources/db.properties /opt/properties
 COPY ui /usr/local/tomcat/webapps/ui
 COPY --from=maven /usr/src/app/target/expense-tracker-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/expense-tracker.war
 
