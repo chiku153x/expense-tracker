@@ -222,7 +222,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 			if (transaction.getCategory().getId().intValue() == categoryId.intValue()) {
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(transaction.getTransactionDate());
-				if(year.intValue() == cal.get(Calendar.YEAR) && month.intValue()== cal.get(Calendar.MONTH) + 1) {
+				if((year.intValue() == cal.get(Calendar.YEAR) && month.intValue()== cal.get(Calendar.MONTH) + 1) || transaction.getIsRecurrent().booleanValue()) {
 					total = total + transaction.getAmount();
 				}
 			}
