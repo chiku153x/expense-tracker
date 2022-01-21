@@ -16,7 +16,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-@PropertySource(ignoreResourceNotFound = true, value = "classpath:db.properties")
+//@PropertySource(ignoreResourceNotFound = true, value = "classpath:db.properties")
+@PropertySource(ignoreResourceNotFound = true, value = "file:/opt/properties/db.properties")
 @Configuration
 @EnableTransactionManagement
 public class DataAccessConfig {
