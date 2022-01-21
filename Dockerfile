@@ -13,7 +13,7 @@ RUN chmod 777 /opt/properties
 COPY src/main/resources/db.properties /opt/properties
 COPY ui /usr/local/tomcat/webapps/ui
 #COPY --from=maven /usr/src/app/target/expense-tracker-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/expense-tracker.war
-COPY expense-tracker.war /usr/local/tomcat/webapps/expense-tracker.war
+COPY expense-tracker.xwar /usr/local/tomcat/webapps/expense-tracker.war
 
 EXPOSE 8080
 ENTRYPOINT ["catalina.sh", "run"]
