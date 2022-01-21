@@ -3,6 +3,7 @@ var base_url = "http://ec2-52-19-37-118.eu-west-1.compute.amazonaws.com:8080/exp
 
 $(document).ready(function() { 
     $('#login-error').hide();
+    $('#username').text(JSON.parse(localStorage.getItem('currentUser'))['name']);
     loadCategories();
  });
 
