@@ -6,9 +6,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AppDate {
+	
+	private static AppDate instance = new AppDate();
+	
+	private AppDate() {}
+	
+	public static AppDate getInstance() {
+		return instance;
+	}
+	
+	
 	private static final String pattern = "dd/MM/yyyy";
 
-	public static Date getDatefromString(String dateString) {
+	public Date getDatefromString(String dateString) {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		try {
 			return simpleDateFormat.parse(dateString);
@@ -18,14 +28,14 @@ public class AppDate {
 		return null;
 	}
 
-	public static Date now() {
+	public Date now() {
 		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 		Date date = new Date();
 		formatter.format(date);
 		return date;
 	}
 
-	public static String getDateFromTimestamp(String timestamp) {
+	public String getDateFromTimestamp(String timestamp) {
 		Timestamp ts = new Timestamp(Long.parseLong(timestamp));
 		Date date = new Date(ts.getTime());
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

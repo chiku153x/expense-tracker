@@ -46,7 +46,7 @@ public class UserController extends BaseController {
 			"application/json; charset=UTF-8" })
 	public ResponseEntity<Object> userLogin(HttpServletRequest request, @RequestBody UserLoginDto userloginDto)
 			throws Exception {
-
+        AppDate appDateInstance = AppDate.getInstance();
 		String userName = userloginDto.getUserName();
 		String password = userloginDto.getPassword();
 		if (userName.trim().equals("") || password.trim().equals("")) {
@@ -59,7 +59,7 @@ public class UserController extends BaseController {
 			String token = AppSecurity.getHash(userName + password);
 			UserLoginResponseDto userloginResponseDto = new UserLoginResponseDto(token,
 					user.getFirstName() + " " + user.getLastName(), user.getId());
-			sessionService.save(new Session(user, token, AppDate.now()));
+			sessionService.save(new Session(user, token, appDateInstance.now()));
 			return new ResponseEntity<>(userloginResponseDto, HttpStatus.OK);
 		}
 

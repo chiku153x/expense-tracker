@@ -57,10 +57,11 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 	@Override
 	public Boolean addTransaction(CreateTransactionDto createTransactionDto) {
 		try {
+			AppDate appDateInstance = AppDate.getInstance();
 			Transaction transaction = new Transaction();
 			User user = userService.find(createTransactionDto.getUser());
 			Category category = categoryService.find(createTransactionDto.getCategory());
-			Date date = AppDate.getDatefromString(createTransactionDto.getTransactionDate());
+			Date date = appDateInstance.getDatefromString(createTransactionDto.getTransactionDate());
 			transaction.setUser(user);
 			transaction.setAmount(createTransactionDto.getAmount());
 			transaction.setIsIncome(createTransactionDto.getIsIncome());
@@ -80,6 +81,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 	@Override
 	public Boolean updateTransaction(UpdateTransactionDto updateTransactionDto) {
 		try {
+			AppDate appDateInstance = AppDate.getInstance();
 			Transaction currentTransaction = find(updateTransactionDto.getId());
 			if (currentTransaction != null) {
 				if (updateTransactionDto.getUser() != null) {
@@ -93,7 +95,7 @@ public class TransactionServiceImpl extends GenericServiceImpl<Transaction, Long
 				}
 
 				if (updateTransactionDto.getTransactionDate() != null) {
-					Date date = AppDate.getDatefromString(updateTransactionDto.getTransactionDate());
+					Date date = appDateInstance.getDatefromString(updateTransactionDto.getTransactionDate());
 					currentTransaction.setTransactionDate(date);
 				}
 
