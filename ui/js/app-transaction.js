@@ -8,9 +8,9 @@ $('#transactionBtn').click(function(){
 
 $('#saveTransaction').click(function(){
     if($('#xid').val() == ""){
-        var url = base_url + "/transaction/createTransactionX";
+        var url = base_url + "/transaction/createTransaction";
     }else{
-        var url = base_url + "/transaction/updateTransactionX";
+        var url = base_url + "/transaction/updateTransaction";
     }
     console.log("login clickedccgggsss");
     var amount = $('#amount').val(); 
@@ -19,7 +19,6 @@ $('#saveTransaction').click(function(){
     var transactionDate = $('#date').val(); 
     var note = $('#note').val();
     var description = $('#description').val();
-    alert(transactionDate + "-" + category);
     if(amount != "" && category != 0 && user != "" && transactionDate != ""){
         data = {
             "amount": amount,
